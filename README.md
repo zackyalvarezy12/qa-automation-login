@@ -53,5 +53,19 @@ Test automation dibuat menggunakan Selenium WebDriver dan PyTest.
 
 Test dijalankan menggunakan:
 
+## Test Evidence
+
+### Bug Detected
+
+Pada saat defect ditemukan, automation test mendeteksi 2 test case yang gagal.
+
+![Bug Detected](screenshots/bug-detected.png)
+
+### Retesting Passed
+
+Setelah defect diperbaiki, seluruh test case berhasil dijalankan kembali.
+
+![Retesting Passed](screenshots/retesting-pass.png)
+
 ```bash
 python -m pytest -v
