@@ -1,279 +1,21 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login HRIS</title>
-    <style>
-        :root {
-            color-scheme: light;
-            --ink: #172033;
-            --muted: #667085;
-            --line: #d9e2ec;
-            --field: #f8fafc;
-            --primary: #1f6feb;
-            --primary-dark: #174ea6;
-            --success: #14804a;
-            --danger: #c43d32;
-            --panel: rgba(255, 255, 255, 0.92);
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            min-height: 100vh;
-            margin: 0;
-            display: grid;
-            place-items: center;
-            padding: 32px 18px;
-            font-family: "Segoe UI", Arial, sans-serif;
-            color: var(--ink);
-            background:
-                radial-gradient(circle at 15% 20%, rgba(31, 111, 235, 0.18), transparent 28%),
-                radial-gradient(circle at 85% 12%, rgba(20, 128, 74, 0.14), transparent 24%),
-                linear-gradient(135deg, #eef4ff 0%, #f7fbf8 45%, #fff8ed 100%);
-        }
-
-        .login-shell {
-            width: min(100%, 920px);
-            display: grid;
-            grid-template-columns: 1fr 390px;
-            overflow: hidden;
-            border: 1px solid rgba(23, 32, 51, 0.08);
-            border-radius: 8px;
-            background: var(--panel);
-            box-shadow: 0 24px 80px rgba(23, 32, 51, 0.16);
-        }
-
-        .brand-panel {
-            position: relative;
-            min-height: 520px;
-            padding: 42px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            color: #ffffff;
-            background:
-                linear-gradient(rgba(12, 43, 82, 0.65), rgba(12, 43, 82, 0.72)),
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 720'%3E%3Cdefs%3E%3ClinearGradient id='a' x1='0' x2='1' y1='0' y2='1'%3E%3Cstop stop-color='%231f6feb'/%3E%3Cstop offset='1' stop-color='%2314804a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='720' height='720' fill='url(%23a)'/%3E%3Cg fill='none' stroke='rgba(255,255,255,.32)' stroke-width='3'%3E%3Cpath d='M96 186h528M96 282h528M96 378h528M96 474h528'/%3E%3Cpath d='M168 126v468M300 126v468M432 126v468M552 126v468'/%3E%3C/g%3E%3Cg fill='rgba(255,255,255,.22)'%3E%3Ccircle cx='168' cy='186' r='28'/%3E%3Ccircle cx='432' cy='282' r='28'/%3E%3Ccircle cx='300' cy='378' r='28'/%3E%3Ccircle cx='552' cy='474' r='28'/%3E%3C/g%3E%3C/svg%3E");
-            background-size: cover;
-            background-position: center;
-        }
-
-        .brand-mark {
-            width: 52px;
-            height: 52px;
-            display: grid;
-            place-items: center;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.16);
-            border: 1px solid rgba(255, 255, 255, 0.24);
-            font-weight: 800;
-            letter-spacing: 0;
-        }
-
-        .brand-copy {
-            max-width: 430px;
-        }
-
-        .brand-copy h1 {
-            margin: 0 0 14px;
-            font-size: clamp(2rem, 5vw, 3.6rem);
-            line-height: 1;
-            letter-spacing: 0;
-        }
-
-        .brand-copy p {
-            margin: 0;
-            max-width: 34ch;
-            color: rgba(255, 255, 255, 0.86);
-            font-size: 1rem;
-            line-height: 1.7;
-        }
-
-        .login-panel {
-            padding: 44px 36px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.96);
-        }
-
-        .login-panel h2 {
-            margin: 0 0 8px;
-            font-size: 1.8rem;
-            line-height: 1.2;
-            letter-spacing: 0;
-        }
-
-        .login-panel .subtitle {
-            margin: 0 0 28px;
-            color: var(--muted);
-            line-height: 1.6;
-        }
-
-        .field-group {
-            margin-bottom: 18px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #344054;
-            font-size: 0.92rem;
-            font-weight: 700;
-        }
-
-        .field {
-            position: relative;
-        }
-
-        .field span {
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #7b8794;
-            font-size: 1rem;
-        }
-
-        input {
-            width: 100%;
-            height: 48px;
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            padding: 0 14px 0 42px;
-            background: var(--field);
-            color: var(--ink);
-            font: inherit;
-            outline: none;
-            transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
-        }
-
-        input::placeholder {
-            color: #98a2b3;
-        }
-
-        input:focus {
-            border-color: var(--primary);
-            background: #ffffff;
-            box-shadow: 0 0 0 4px rgba(31, 111, 235, 0.14);
-        }
-
-        button {
-            width: 100%;
-            height: 48px;
-            margin-top: 6px;
-            border: 0;
-            border-radius: 8px;
-            background: var(--primary);
-            color: #ffffff;
-            font: inherit;
-            font-weight: 800;
-            cursor: pointer;
-            box-shadow: 0 12px 24px rgba(31, 111, 235, 0.26);
-            transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
-        }
-
-        button:hover {
-            background: var(--primary-dark);
-            box-shadow: 0 14px 28px rgba(23, 78, 166, 0.3);
-            transform: translateY(-1px);
-        }
-
-        button:active {
-            transform: translateY(0);
-        }
-
-        #message {
-            min-height: 44px;
-            margin: 18px 0 0;
-            padding: 12px 14px;
-            border-radius: 8px;
-            color: var(--muted);
-            background: #f2f4f7;
-            font-size: 0.94rem;
-            line-height: 1.35;
-        }
-
-        #message.success {
-            color: var(--success);
-            background: #eaf7ef;
-        }
-
-        #message.error {
-            color: var(--danger);
-            background: #fff0ed;
-        }
-
-        @media (max-width: 760px) {
-            body {
-                padding: 0;
-                place-items: stretch;
-            }
-
-            .login-shell {
-                min-height: 100vh;
-                grid-template-columns: 1fr;
-                border: 0;
-                border-radius: 0;
-            }
-
-            .brand-panel {
-                min-height: 260px;
-                padding: 28px;
-            }
-
-            .brand-copy h1 {
-                font-size: 2.2rem;
-            }
-
-            .login-panel {
-                padding: 34px 24px 42px;
-                justify-content: flex-start;
-            }
-        }
-    </style>
 </head>
 <body>
-    <main class="login-shell">
-        <section class="brand-panel" aria-label="HRIS">
-            <div class="brand-mark">HR</div>
-            <div class="brand-copy">
-                <h1>HRIS</h1>
-                <p>Portal karyawan untuk akses data kehadiran, profil, dan aktivitas kerja secara cepat.</p>
-            </div>
-        </section>
 
-        <section class="login-panel" aria-label="Form login">
-            <h2>Login HRIS</h2>
-            <p class="subtitle">Masuk menggunakan akun yang sudah terdaftar.</p>
+    <h2>Login HRIS</h2>
 
-            <form onsubmit="login(); return false;">
-                <div class="field-group">
-                    <label for="username">Username</label>
-                    <div class="field">
-                        <span aria-hidden="true">@</span>
-                        <input id="username" type="text" placeholder="Masukkan username" autocomplete="username">
-                    </div>
-                </div>
+    <input id="username" type="text" placeholder="Username">
+    <br><br>
 
-                <div class="field-group">
-                    <label for="password">Password</label>
-                    <div class="field">
-                        <span aria-hidden="true">*</span>
-                        <input id="password" type="password" placeholder="Masukkan password" autocomplete="current-password">
-                    </div>
-                </div>
+    <input id="password" type="password" placeholder="Password">
+    <br><br>
 
-                <button id="submit-login" type="submit">Masuk</button>
-            </form>
+    <button id="submit-login" onclick="login()">Masuk</button>
 
-            <p id="message" aria-live="polite"></p>
-        </section>
-    </main>
+    <p id="message"></p>
 
     <script>
         function login() {
@@ -281,21 +23,17 @@
             let password = document.getElementById("password").value;
             let message = document.getElementById("message");
 
-            message.className = "";
-
             if (username === "") {
                 message.innerText = "Username wajib diisi";
-                message.classList.add("error");
-            }
+            } 
             else if (username === "zacky" && password === "123456") {
                 message.innerText = "Login berhasil";
-                message.classList.add("success");
-            }
+            } 
             else {
                 message.innerText = "Username atau password salah";
-                message.classList.add("error");
             }
         }
     </script>
+
 </body>
 </html>
